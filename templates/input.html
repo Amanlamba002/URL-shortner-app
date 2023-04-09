@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+URL Shortener - User Input
+{% endblock %}
+
+{% block header %}
+<h1 style="text-align: center; font-size: 36px;">Enter Your URL to Get Shortened</h1>
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+  <form action="{{ url_for('add_input') }}" method="POST" style="display: inline-block;">
+    <input type="text" name="url_L" placeholder="Enter the URL to shorten" style="padding: 10px; border-radius: 5px; border: 1px solid #ddd; width: 60%; font-size: 16px;">
+    <button type="submit" style="background-color: #4CAF50; color: #fff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Shorten</button>
+  </form>
+</div>
+
+{% if short %}
+<div style="text-align: center; margin-top: 20px;">
+  <input type="text" placeholder="Shortened URL" value="{{short}}" id="shortened-url" style="padding: 10px; border-radius: 5px; border: 1px solid #ddd; width: 60%; font-size: 16px;">
+  <button onclick="copyToClipboard()" style="background-color: #4CAF50; color: #fff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Copy</button>
+</div>
+{% endif %}
+
+<script>
+function copyToClipboard() {
+    var copyText = document.getElementById("shortened-url");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    document.execCommand("copy");
+    alert("Copied the URL: " + copyText.value);
+}
+</script>
+
+{% endblock %}
